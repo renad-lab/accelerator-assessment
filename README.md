@@ -49,3 +49,4 @@ PG_DATABASE='animes_dev'`
 2. render a list of animes in `Animes.js` using the Anime component
 3. There should be at least 4 animes in your database to pass the tests
 4. ![How your UI should look](./ui.png "How your UI should look")
+   1. Your animes should be laid out like this
