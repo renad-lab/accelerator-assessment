@@ -10,7 +10,6 @@ const {
 
 
 
-
 /* Instructions: Use the following prompts to write the corresponding routes. **Each** route should be able to catch server-side and user input errors(should they apply). Consult the test files to see how the routes and errors should work.*/
 //Write a GET route that retrieves all animes from the database and sends them to the client with a 200 status code
 

@@ -52,12 +52,13 @@ describe("user errors for /animes", () => {
   it("PUT /animes should throw a 404 error if the anime the user is trying to update does not exist", async () => {
     const res = await supertest(app).put("/animes/100000").send({
       name: "Fake anime",
-      description: 'new desc.'
+      description: "new desc.",
     });
     expect(res.statusCode).toBe(404);
   });
   it("DELETE /animes should throw a 404 error if the anime the user is trying to update does not exist", async () => {
-    const res = await supertest(app).delete("/animes/100000")
+    const res = await supertest(app).delete("/animes/100000");
+    console.log(res);
     expect(res.statusCode).toBe(404);
   });
 });

@@ -27,7 +27,7 @@ app.get("/", async (_, res) => {
 app.use("/animes", animesController);
 
 app.get("*", (_, res) => {
-  res.status(404).send("The request you are looking for doesnt exist!");
+  res.status(404).send("The route you are looking for doesn't exist!");
 });
 
 // EXPORT
