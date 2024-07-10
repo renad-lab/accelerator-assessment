@@ -9,6 +9,7 @@ const db = require("../../db/dbConfig");
 describe("/animes", () => {
   it("GET /animes should respond with a list of animes", async () => {
     const res = await supertest(app).get("/animes");
+    expect(res.statusCode).toBe(200);
     if (res.body.length > 0) {
       expect(
         res.body.every(
@@ -24,6 +25,8 @@ describe("/animes", () => {
       name: "Fake anime",
       description: "This anime does not exist.",
     });
+    expect(res.statusCode).toBe(201);
+
     const dbRecord = await db.one(
       "SELECT * FROM animes WHERE name='Fake anime'"
     );
@@ -40,6 +43,7 @@ describe("/animes", () => {
       name: "fakeanime3",
       description: "new description",
     });
+    expect(res.statusCode).toBe(200);
     const updatedAnime = await getOneAnime(fakeAnime.id);
     expect(updatedAnime).toEqual({
       name: "fakeanime3",
@@ -53,7 +57,8 @@ describe("/animes", () => {
       "Fake anime200",
       "This is also a fake anime"
     );
-    await supertest(app).delete(`/animes/${fakeAnime.id}`);
+    const res = await supertest(app).delete(`/animes/${fakeAnime.id}`);
+    expect(res.statusCode).toBe(200);
     const deletedAnime = await db.oneOrNone(
       `SELECT * FROM animes where name='Fake anime200'`
     );
