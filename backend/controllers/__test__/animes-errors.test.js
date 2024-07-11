@@ -43,20 +43,20 @@ describe("user errors for /animes", () => {
     });
     expect(res.statusCode).toBe(400);
   });
-  it("PUT /animes should throw a 400 error if there is not both a name and a description in the request body", async () => {
+  it("PUT /animes/:animeId should throw a 400 error if there is not both a name and a description in the request body", async () => {
     const res = await supertest(app).put("/animes/1").send({
       name: "Fake anime",
     });
     expect(res.statusCode).toBe(400);
   });
-  it("PUT /animes should throw a 404 error if the anime the user is trying to update does not exist", async () => {
+  it("PUT /animes/:animeId should throw a 404 error if the anime the user is trying to update does not exist", async () => {
     const res = await supertest(app).put("/animes/100000").send({
       name: "Fake anime",
       description: "new desc.",
     });
     expect(res.statusCode).toBe(404);
   });
-  it("DELETE /animes should throw a 404 error if the anime the user is trying to update does not exist", async () => {
+  it("DELETE /animes/:animeId should throw a 404 error if the anime the user is trying to delete does not exist", async () => {
     const res = await supertest(app).delete("/animes/100000");
     console.log(res);
     expect(res.statusCode).toBe(404);

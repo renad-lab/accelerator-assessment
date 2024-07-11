@@ -44,7 +44,7 @@ PG_DATABASE='animes_dev'`
 
 ### Instructions
 
-1. In the use `Animes.js` file, fetch a list of all animes from your server
+1. In the `Animes.js` file, fetch a list of all animes from your server
    1. You are allowed to use `axios` and `fetch`
 2. render a list of animes in `Animes.js` using the Anime component
 3. There should be at least 4 animes in your database to pass the tests
