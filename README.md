@@ -1,5 +1,7 @@
 # Accelerator assessment
 
+You can use `CMD + Shift + V` to open this document as a preview.
+
 ## Navigating a monorepo
 
 This project is a monorepo, meaning that the frontend and backend are in the same repository. You have to `cd` into `/backend` or `/frontend` in order to `npm install` for both ends of the stack. They each have their own package.json and therefore their own dependencies. The frontend and backend will also need their own .env files. You will not be able to use `npm run start` or other scripts unless you are in the correct folder. `npm run start` will start the `frontend`.
