@@ -1,70 +1,93 @@
-import { useState } from "react"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { TextField, Button, Box } from "@mui/material";
 
+const API = process.env.REACT_APP_BASE_URL;
 
+function NewAnime() {
+  const navigate = useNavigate();
+  const [anime, setAnime] = useState({
+    name: "",
+    description: "",
+  });
 
-export default function NewAnime() {
-
-    const API = process.env.REACT_APP_API_URL
-
-    const [anime, setAnime] = useState({
-        name: '',
-        description: ''
+  // Add a new anime. Redirect to the index view.
+  const addAnime = () => {
+    fetch(`${API}/animes`, {
+      method: "POST",
+      body: JSON.stringify(anime),
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
+      .then(() => {
+        navigate(`/animes`);
+      })
+      .catch((error) => console.error("catch", error));
+  };
 
-    function handleNameChange(event) {
-        let currentValue = event.target.value
+  const handleTextChange = (event) => {
+    const { id, value } = event.target;
+    setAnime({
+      ...anime,
+      [id]: value,
+    });
+  };
 
-        setAnime({
-            ...anime,
-            name: currentValue,
-        })
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addAnime();
+  };
 
-    function handleDesciptionChange(event) {
-        let currentValue = event.target.value
-
-        setAnime({
-            ...anime,
-            description: currentValue,
-        })
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault()
-
-        console.log(anime)
-        fetch(`${API}/animes/new`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(anime)
-        }).then((response) => response.json()).then((data) => {
-            console.log(data)
-            setAnime({
-                name: '',
-                description: ''
-            })
-        })
-    }
-
-    // console.log(anime)
-    return (
-        <form className="new-anime-form" onSubmit={handleSubmit}>
-            <h1>New Anime</h1>
-            <label>
-                Please enter the name of your anime:
-                <input type='text' value={anime.name} onChange={(event) => handleNameChange(event)}/>
-            </label>
-            <label>
-                Please enter the description of your anime:
-                {/* <input type='text'/> */}
-                <textarea  value={anime.description} onChange={(event) => handleDesciptionChange(event)} />
-            </label>
-            <div className="form-button-container">
-                {/* <input type="submit" value={'Submit'} /> */}
-                <button type="submit" className="form-button">Submit</button>
-            </div>
-        </form>
-    )
+  return (
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        maxWidth: 400,
+        mx: "auto",
+        mt: 4,
+      }}
+    >
+      <TextField
+        id="name"
+        label="Name"
+        value={anime.name}
+        onChange={handleTextChange}
+        placeholder="Name of the Anime"
+        required
+        fullWidth
+      />
+      <TextField
+        id="description"
+        label="Description"
+        value={anime.description}
+        onChange={handleTextChange}
+        placeholder="Write a short description of the anime"
+        required
+        multiline
+        rows={4}
+        fullWidth
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        sx={{
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          "&:hover": {
+            backgroundColor: "#ffffff",
+            color: "#000000",
+          },
+        }}
+      >
+        Add Anime
+      </Button>
+    </Box>
+  );
 }
+
+export default NewAnime;
