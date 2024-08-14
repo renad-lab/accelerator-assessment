@@ -67,7 +67,7 @@ function Anime() {
       method: "DELETE",
     })
       .then(() => {
-        navigate("/animes");
+        navigate("/"); // Navigate to the home page after deletion
       })
       .catch((error) => console.error("Delete error:", error));
   };
@@ -112,7 +112,7 @@ function Anime() {
                 component={Link}
                 to="/"
               >
-                Back to Animes
+                Home
               </Button>
               <Button
                 variant="contained"
